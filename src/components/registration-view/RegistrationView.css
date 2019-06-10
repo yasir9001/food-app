@@ -1,0 +1,26 @@
+.registration-from-wrapper{
+    background: rgb(153, 22, 22);
+    width: 100%;
+    height: stretch;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.registration-from-body{
+    width: 70%;
+    padding:10vh 0;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    border-radius: 2px;
+
+}
+
+
+.registration-form-wrapper{
+    /* border: 1px solid blue; */
+    width: fit-content;
+    height: fit-content; 
+}
