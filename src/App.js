@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import { WrappedRegistration } from './components/registration/Registration';
+import { RegistrationView } from './components/registration-view/RegistrationView';
 
 function App() {
   return (
     <div>
-      <WrappedRegistration />
+      <RegistrationView />
     </div>
   );
 }

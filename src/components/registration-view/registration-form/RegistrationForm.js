@@ -17,7 +17,7 @@ import {
 // const { Option } = Select;
 // const AutoCompleteOption = AutoComplete.Option;
 
-class Registration extends React.Component {
+class RegistrationForm extends React.Component {
     state = {
         confirmDirty: false,
         autoCompleteResult: [],
@@ -185,5 +185,5 @@ class Registration extends React.Component {
         );
     }
 }
-let WrappedRegistration = Form.create({ name: 'register' })(Registration);
-export { WrappedRegistration }
+let WrappedRegistrationForm = Form.create({ name: 'register' })(RegistrationForm);
+export { WrappedRegistrationForm }
