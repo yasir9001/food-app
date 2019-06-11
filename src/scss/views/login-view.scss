@@ -1,0 +1,23 @@
+.login-from-wrapper{
+    background: rgb(240, 26, 26);
+    width: 100%;
+    height: stretch;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-from-body{    
+    width: 40%;
+    padding:10vh 0;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    border-radius: 2px;
+
+}
+
+.registration-form-wrapper{
+    width: fit-content;
+    height: fit-content; 
+}
