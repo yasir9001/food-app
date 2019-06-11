@@ -2,20 +2,9 @@ import React from 'react'
 import {
     Form,
     Input,
-    Tooltip,
-    Icon,
-    Cascader,
-    Select,
-    Row,
-    Col,
-    Checkbox,
     Button,
-    AutoComplete,
 } from 'antd';
 
-
-// const { Option } = Select;
-// const AutoCompleteOption = AutoComplete.Option;
 
 class LoginForm extends React.Component {
     state = {
@@ -85,21 +74,6 @@ class LoginForm extends React.Component {
             <div className="registration-form-wrapper">
                 <Form {...formItemLayout} onSubmit={this.handleSubmit} >
 
-                    {/* <Form.Item label="Full Name" >
-                        {getFieldDecorator('fullname', {
-                            rules: [
-                                {
-                                    // type: 'text',
-                                    message: 'This is not a valid name',
-                                },
-                                {
-                                    required: true,
-                                    message: 'Please enter your full name!',
-                                },
-                            ],
-                        })(<Input />)}
-                    </Form.Item> */}
-
                     <Form.Item label="E-mail">
                         {getFieldDecorator('email', {
                             rules: [
@@ -115,37 +89,6 @@ class LoginForm extends React.Component {
                         })(<Input />)}
                     </Form.Item>
 
-
-                    {/* <Form.Item label="Country">
-                        {getFieldDecorator('country', {
-                            rules: [
-                                {
-                                    // type: 'text',
-                                    message: 'Enter a valid country name',
-                                },
-                                {
-                                    // required: true,
-                                    message: 'Please enter your country name!',
-                                },
-                            ],
-                        })(<Input />)}
-                    </Form.Item>
-
-
-                    <Form.Item label="City">
-                        {getFieldDecorator('city', {
-                            rules: [
-                                {
-                                    // type: 'text',
-                                    message: 'Please provide a valid city name!',
-                                },
-                                {
-                                    // required: true,
-                                    message: 'Please enter your  city name!',
-                                },
-                            ],
-                        })(<Input />)}
-                    </Form.Item> */}
                     <Form.Item label="Password" hasFeedback>
                         {getFieldDecorator('password', {
                             rules: [
@@ -159,21 +102,6 @@ class LoginForm extends React.Component {
                             ],
                         })(<Input.Password />)}
                     </Form.Item>
-                    {/* <Form.Item label="Confirm Password" hasFeedback>
-                        {getFieldDecorator('confirm', {
-                            rules: [
-                                {
-                                    required: true,
-                                    message: 'Please confirm your password!',
-                                },
-                                {
-                                    validator: this.compareToFirstPassword,
-                                },
-                            ],
-                        })(<Input.Password onBlur={this.handleConfirmBlur} />)}
-                    </Form.Item> */}
-
-
 
                     <Form.Item {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">
