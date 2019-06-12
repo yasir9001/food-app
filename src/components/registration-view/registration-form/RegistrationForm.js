@@ -2,16 +2,10 @@ import React from 'react'
 import {
     Form,
     Input,
-    Tooltip,
-    Icon,
-    Cascader,
     Select,
-    Row,
-    Col,
-    Checkbox,
     Button,
-    AutoComplete,
 } from 'antd';
+const {Option} = Select;
 
 class RegistrationForm extends React.Component {
     state = {
@@ -52,7 +46,7 @@ class RegistrationForm extends React.Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        const { autoCompleteResult } = this.state;
+        // const { autoCompleteResult } = this.state;
 
         const formItemLayout = {
             labelCol: {
@@ -76,6 +70,8 @@ class RegistrationForm extends React.Component {
                 },
             },
         };
+
+        console.log(this.props.form)
 
         return (
             <div className="registration-form-wrapper">
@@ -112,6 +108,19 @@ class RegistrationForm extends React.Component {
                     </Form.Item>
 
 
+                    <Form.Item label="Gender">
+                        {getFieldDecorator('gender', {
+                            rules: [{ required: false, message: 'Please select your gender!' }],
+                        })(
+                            <Select
+                                placeholder="select you gender"
+                                // onChange={this.handleSelectChange}
+                            >
+                                <Option value="male">male</Option>
+                                <Option value="female">female</Option>
+                            </Select>,
+                        )}
+                    </Form.Item>
                     <Form.Item label="Country">
                         {getFieldDecorator('country', {
                             rules: [

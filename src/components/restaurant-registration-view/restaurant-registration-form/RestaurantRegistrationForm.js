@@ -2,15 +2,9 @@ import React from 'react'
 import {
     Form,
     Input,
-    Tooltip,
     Icon,
-    Cascader,
-    Select,
-    Row,
-    Col,
-    Checkbox,
-    Button,message,
-    AutoComplete,
+    Button,
+    message,
     Upload,
 } from 'antd';
 function getBase64(img, callback) {

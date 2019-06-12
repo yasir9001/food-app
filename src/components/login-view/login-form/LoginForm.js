@@ -45,7 +45,7 @@ class LoginForm extends React.Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        const { autoCompleteResult } = this.state;
+        // const { autoCompleteResult } = this.state;
 
         const formItemLayout = {
             labelCol: {
