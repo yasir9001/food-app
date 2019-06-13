@@ -4,19 +4,31 @@ import {
     Input,
     Select,
     Button,
+    InputNumber
 } from 'antd';
-const {Option} = Select;
+
+import firebase from './../../../firebaseConfig';
+
+const { Option } = Select;
 
 class RegistrationForm extends React.Component {
     state = {
         confirmDirty: false,
-        autoCompleteResult: [],
+        number: {
+            value: 11,
+        },
     };
 
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
+                firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
+                .then((res)=>{
+                    firebase.firestore().collection('users')
+                    .add({...values})
+                })
+                .catch((err)=> console.log(err))
                 console.log('Received values of form: ', values);
             }
         });
@@ -46,7 +58,9 @@ class RegistrationForm extends React.Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        // const { autoCompleteResult } = this.state;
+        const number = this.state.number;
+        const tips =
+            'A prime is a natural number greater than 1 that has no positive divisors other than 1 and itself.';
 
         const formItemLayout = {
             labelCol: {
@@ -114,13 +128,35 @@ class RegistrationForm extends React.Component {
                         })(
                             <Select
                                 placeholder="select you gender"
-                                // onChange={this.handleSelectChange}
+                            // onChange={this.handleSelectChange}
                             >
                                 <Option value="male">male</Option>
                                 <Option value="female">female</Option>
                             </Select>,
                         )}
                     </Form.Item>
+                            
+                    <Form.Item label="Age"
+
+                        // validateStatus={number.validateStatus}
+                        // help={number.errorMsg}
+                    >
+                        {getFieldDecorator('age', {
+                            rules: [
+                                {
+                                    type: 'number',
+                                    message: 'Enter your valid age',
+                                },
+                                {
+                                    required: true,
+                                    message: 'Please enter your age',   
+                                },
+                            ],
+                        })(<InputNumber min={10} max={100} />)}
+                    </Form.Item>
+
+
+
                     <Form.Item label="Country">
                         {getFieldDecorator('country', {
                             rules: [
