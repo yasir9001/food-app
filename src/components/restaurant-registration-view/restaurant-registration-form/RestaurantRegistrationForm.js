@@ -7,24 +7,25 @@ import {
     message,
     Upload,
 } from 'antd';
+import firebase from './../../../firebaseConfig'
+
 function getBase64(img, callback) {
-  
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
     reader.readAsDataURL(img);
-  }
-  
-  function beforeUpload(file) {
+}
+
+function beforeUpload(file) {
     const isJPG = file.type === 'image/png';
     if (!isJPG) {
-      message.error('You can only upload JPG file!');
+        message.error('You can only upload JPG file!');
     }
     const isLt2M = file.size / 1024 / 1024 < 2;
     if (!isLt2M) {
-      message.error('Image must smaller than 2MB!');
+        message.error('Image must smaller than 2MB!');
     }
     return isJPG && isLt2M;
-  }
+}
 
 class RestaurantRegistrationForm extends React.Component {
     state = {
@@ -36,27 +37,42 @@ class RestaurantRegistrationForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
+                    .then((res) => {
+                        firebase.firestore().collection('users').doc(res.user.uid)
+                            .set({ ...values, type: 'restaurant' })
+                            .then(() => {
+                                firebase.auth().currentUser.sendEmailVerification()
+                                    .then(function () {
+                                        alert('email sent')
+                                    }, function (err) {
+                                        console.log(err)
+                                    });
+                            })
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
             }
         });
     };
     handleChangeimage = info => {
         if (info.file.status === 'uploading') {
-          this.setState({ loading: true });
-          return;
+            this.setState({ loading: true });
+            return;
         }
         if (info.file.status === 'done') {
-          // Get this url from response in real world.
-          getBase64(info.file.originFileObj, imageUrl =>
-            this.setState({
-              imageUrl,
-              loading: false,
-            }),
-            console.log(this.state.imageUrl )
-          );
+            // Get this url from response in real world.
+            getBase64(info.file.originFileObj, imageUrl =>
+                this.setState({
+                    imageUrl,
+                    loading: false,
+                }),
+                console.log(this.state.imageUrl)
+            );
         }
-      };
-    
+    };
+
     handleConfirmBlur = e => {
         const value = e.target.value;
         this.setState({ confirmDirty: this.state.confirmDirty || !!value });
@@ -88,7 +104,6 @@ class RestaurantRegistrationForm extends React.Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        // const { autoCompleteResult } = this.state;
 
         const formItemLayout = {
             labelCol: {
@@ -113,7 +128,6 @@ class RestaurantRegistrationForm extends React.Component {
             },
         };
 
-        console.log(this.state)
         return (
             <div className="registration-form-wrapper">
                 <Form {...formItemLayout} onSubmit={this.handleSubmit} >
@@ -223,11 +237,7 @@ class RestaurantRegistrationForm extends React.Component {
                         })(<Input.Password onBlur={this.handleConfirmBlur} />)}
                     </Form.Item>
 
-                    <Form.Item label="Upload liscence" extra="Upload a scanned copy of your restaurant liscence">
-                        {/* {getFieldDecorator('upload', {
-                            valuePropName: 'fileList',
-                            getValueFromEvent: this.normFile,
-                        })( */}
+                    {/* <Form.Item label="Upload liscence" extra="Upload a scanned copy of your restaurant liscence">
                             <div>
                                 <Upload 
                                     name="avatar"
@@ -243,8 +253,7 @@ class RestaurantRegistrationForm extends React.Component {
                                     </Button>
                                 </Upload>
                             </div>
-                        {/* )} */}
-                    </Form.Item>
+                    </Form.Item> */}
 
 
 

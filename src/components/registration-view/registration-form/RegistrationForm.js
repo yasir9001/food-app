@@ -25,16 +25,11 @@ class RegistrationForm extends React.Component {
             if (!err) {
                 firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
                 .then((res)=>{
-                    firebase.firestore().collection('users')
-                    .add({...values})
+                    firebase.firestore().collection('users').doc(res.user.uid)
+                    .set({...values, type:'user'})
                 })
                 .catch((err)=> {
-                    firebase.firestore().collection('users').doc('zFmDqQqjZzXcrIvgItjGsGY2KZB3')
-                    .get().then((doc)=> {
-                        console.log(doc.data())
-                    })
                     console.log(err)})
-                console.log('Received values of form: ', values);
             }
         });
     };
