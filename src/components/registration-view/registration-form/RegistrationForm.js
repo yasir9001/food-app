@@ -20,7 +20,7 @@ class RegistrationForm extends React.Component {
     };
 
     handleSubmit = e => {
-        e.preventDefault();
+          e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
@@ -28,7 +28,12 @@ class RegistrationForm extends React.Component {
                     firebase.firestore().collection('users')
                     .add({...values})
                 })
-                .catch((err)=> console.log(err))
+                .catch((err)=> {
+                    firebase.firestore().collection('users').doc('zFmDqQqjZzXcrIvgItjGsGY2KZB3')
+                    .get().then((doc)=> {
+                        console.log(doc.data())
+                    })
+                    console.log(err)})
                 console.log('Received values of form: ', values);
             }
         });

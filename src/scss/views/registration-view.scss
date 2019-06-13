@@ -1,5 +1,7 @@
+@import './../variables/standards.scss';
+
 .registration-from-wrapper{
-    background: rgb(240, 26, 26);
+    background: $mainbackground;
     width: 100%;
     height: stretch;
     display: flex;

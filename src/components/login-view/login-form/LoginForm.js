@@ -4,8 +4,9 @@ import {
     Input,
     Button,
 } from 'antd';
-
-
+import { connect } from 'react-redux'
+import { saveLoginData } from './../../../redux-config/actions/action'
+import firebase from './../../../firebaseConfig'
 class LoginForm extends React.Component {
     state = {
         confirmDirty: false,
@@ -16,7 +17,18 @@ class LoginForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                firebase.auth().signInWithEmailAndPassword(values.email, values.password)
+                    .then((res) => {
+                        // console.log('Received values of form: ', values);
+                        firebase.firestore().collection('users').doc(res.user.uid).get()
+                            .then((blob) => {
+                                console.log(blob.data())
+                                this.props.saveLoginData({ ...res.user, ...blob.data() })
+                            })
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
             }
         });
     };
@@ -46,6 +58,7 @@ class LoginForm extends React.Component {
     render() {
         const { getFieldDecorator } = this.props.form;
         // const { autoCompleteResult } = this.state;
+        console.log(this.props.userLoginData)
 
         const formItemLayout = {
             labelCol: {
@@ -113,5 +126,26 @@ class LoginForm extends React.Component {
         );
     }
 }
+
+
+const matchStateToProps = (state) => {
+    return ({
+        userLoginData: state.mainReducer.userLoginData,
+    })
+}
+
+const matchDispatchToProps = (dispatch) => {
+    return {
+        saveLoginData: (data) => {
+            dispatch(saveLoginData(data))
+        }
+    }
+}
+
+
+
+
 let WrappedLoginForm = Form.create({ name: 'signin' })(LoginForm);
+WrappedLoginForm = connect(matchStateToProps, matchDispatchToProps)(WrappedLoginForm)
+
 export { WrappedLoginForm }
