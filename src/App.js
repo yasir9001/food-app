@@ -4,16 +4,21 @@ import { RegistrationView } from './components/registration-view/RegistrationVie
 import { RestaurantRegistrationView } from './components/restaurant-registration-view/RestaurantRegistrationView'
 import { LoginView } from './components/login-view/LoginView'
 import { Route, BrowserRouter } from 'react-router-dom';
+import { UserRoutes } from './components/user-view/UserRoutes'
 
 function App() {
   return (
-    <BrowserRouter>
-      <>
-        <Route exact path="/" render={(props) => <LoginView {...props} />} />
-        <Route exact path="/register" render={(props) => <RegistrationView {...props} />} />
-        <Route exact path="/register-restaurant" render={(props) => <RestaurantRegistrationView {...props} />} />
-      </>
-    </BrowserRouter>
+    <div>
+      <BrowserRouter>
+        <>
+          <Route exact path="/" render={(props) => <LoginView {...props} />} />
+          <Route exact path="/register" render={(props) => <RegistrationView {...props} />} />
+          <Route exact path="/register-restaurant" render={(props) => <RestaurantRegistrationView {...props} />} />
+          {/* <Route exact path="/user" render={(props) => <UserRoutes {...props} />} /> */}
+        </>
+      </BrowserRouter>
+      <UserRoutes />  
+    </div>
   );
 }
 

@@ -20,16 +20,17 @@ class RegistrationForm extends React.Component {
     };
 
     handleSubmit = e => {
-          e.preventDefault();
+        e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
-                .then((res)=>{
-                    firebase.firestore().collection('users').doc(res.user.uid)
-                    .set({...values, type:'user'})
-                })
-                .catch((err)=> {
-                    console.log(err)})
+                    .then((res) => {
+                        firebase.firestore().collection('users').doc(res.user.uid)
+                            .set({ ...values, type: 'user' })
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
             }
         });
     };
@@ -85,7 +86,7 @@ class RegistrationForm extends React.Component {
             },
         };
 
-        console.log(this.props.form)
+        console.log(this.props)
 
         return (
             <div className="registration-form-wrapper">
@@ -135,11 +136,11 @@ class RegistrationForm extends React.Component {
                             </Select>,
                         )}
                     </Form.Item>
-                            
+
                     <Form.Item label="Age"
 
-                        // validateStatus={number.validateStatus}
-                        // help={number.errorMsg}
+                    // validateStatus={number.validateStatus}
+                    // help={number.errorMsg}
                     >
                         {getFieldDecorator('age', {
                             rules: [
@@ -149,7 +150,7 @@ class RegistrationForm extends React.Component {
                                 },
                                 {
                                     required: true,
-                                    message: 'Please enter your age',   
+                                    message: 'Please enter your age',
                                 },
                             ],
                         })(<InputNumber min={10} max={100} />)}
@@ -222,6 +223,10 @@ class RegistrationForm extends React.Component {
                         </Button>
                     </Form.Item>
                 </Form>
+
+                <div className="footer-link">
+                    <span>Already have an account! <a onClick={() => window.location = '/'}>login Now</a></span>
+                </div>
             </div>
         );
     }

@@ -19,11 +19,10 @@ class LoginForm extends React.Component {
             if (!err) {
                 firebase.auth().signInWithEmailAndPassword(values.email, values.password)
                     .then((res) => {
-                        // console.log('Received values of form: ', values);
                         firebase.firestore().collection('users').doc(res.user.uid).get()
                             .then((blob) => {
-                                console.log(blob.data())
                                 this.props.saveLoginData({ ...res.user, ...blob.data() })
+                                window.location = '/user/home'
                             })
                     })
                     .catch((err) => {
@@ -58,7 +57,7 @@ class LoginForm extends React.Component {
     render() {
         const { getFieldDecorator } = this.props.form;
         // const { autoCompleteResult } = this.state;
-        console.log(this.props.userLoginData)
+        console.log(this.props)
 
         const formItemLayout = {
             labelCol: {
@@ -122,6 +121,12 @@ class LoginForm extends React.Component {
                         </Button>
                     </Form.Item>
                 </Form>
+
+                <div className="footer-link">
+                    <span>Don't have an account!
+                        <a onClick={() => window.location = '/register'}>Register Now</a></span>
+                </div>
+
             </div>
         );
     }
