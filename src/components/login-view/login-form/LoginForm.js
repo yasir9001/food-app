@@ -81,7 +81,7 @@ class LoginForm extends React.Component {
                 },
             },
         };
-
+console.log(this.props)
         return (
             <div className="registration-form-wrapper">
                 <Form {...formItemLayout} onSubmit={this.handleSubmit} >
