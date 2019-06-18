@@ -5,6 +5,7 @@ import { RestaurantRegistrationView } from './components/restaurant-registration
 import { LoginView } from './components/login-view/LoginView'
 import { Route, BrowserRouter } from 'react-router-dom';
 import { UserRoutes } from './components/user-view/UserRoutes'
+import { RestaurantRoutes } from './components/restaurant-view/RestaurantViewRoutes';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         </>
       </BrowserRouter>
       <UserRoutes />
+      <RestaurantRoutes />
     </div>
   );
 }

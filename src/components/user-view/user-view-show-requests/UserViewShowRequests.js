@@ -7,7 +7,9 @@ export class UserViewShowRequests extends Component {
 
     render() {
         return (
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div
+            //  style={{ display: 'inline-block', flexWrap: 'wrap', justifyContent: 'center', border: '1px solid red' }}
+             >
                 {
                     this.props.data.filter((e) => {
                         if (this.props.type === 'all') return true
@@ -16,23 +18,25 @@ export class UserViewShowRequests extends Component {
                         }
                     }).map((e, i) => {
                         return (
-                            <Card
-                            key={i}
-                                style={{ width: 300, margin: '10px 10px' }}
-                                cover={
-                                    <img
-                                        alt="example"
-                                        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                            <div style={{float:"left"}}> 
+                                <Card
+                                    key={i}
+                                    style={{ width: 300, margin: '10px 10px' }}
+                                    cover={
+                                        <img
+                                            alt="example"
+                                            src={`https://picsum.photos/200/300?random=${i}`}
+                                        />
+                                    }
+                                    actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+                                >
+                                    <Meta
+                                        avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                                        title={e.title}
+                                        description={e.description}
                                     />
-                                }
-                                actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
-                            >
-                                <Meta
-                                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                                    title={e.title}
-                                    description={e.description}
-                                />
-                            </Card>
+                                </Card>
+                            </div>
                         )
                     })
                 }
