@@ -22,6 +22,7 @@ class LoginForm extends React.Component {
                         firebase.firestore().collection('users').doc(res.user.uid).get()
                             .then((blob) => {
                                 this.props.saveLoginData({ ...res.user, ...blob.data() })
+                                // this.props.history.push('/user/home')
                                 window.location = '/user/home'
                             })
                     })
@@ -81,7 +82,7 @@ class LoginForm extends React.Component {
                 },
             },
         };
-console.log(this.props)
+console.log('loginform',this.props)
         return (
             <div className="registration-form-wrapper">
                 <Form {...formItemLayout} onSubmit={this.handleSubmit} >
@@ -124,7 +125,7 @@ console.log(this.props)
 
                 <div className="footer-link">
                     <span>Don't have an account!
-                        <a onClick={() => window.location = '/register'}>Register Now</a></span>
+                        <a onClick={() => this.props.history.push('/register')}>Register Now</a></span>
                 </div>
 
             </div>

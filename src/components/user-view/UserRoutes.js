@@ -7,7 +7,7 @@ class UserRoutes extends Component {
         return (
             <BrowserRouter>
                 <div>
-                    <Route exact path="/user/home" render={() => <UserHome />} />
+                    <Route exact path="/user/home" render={(props) => <UserHome {...props} />} />
                 </div>
             </BrowserRouter>
         )

@@ -225,7 +225,7 @@ class RegistrationForm extends React.Component {
                 </Form>
 
                 <div className="footer-link">
-                    <span>Already have an account! <a onClick={() => window.location = '/'}>login Now</a></span>
+                    <span>Already have an account! <a onClick={() => this.props.history.push('/')}>login Now</a></span>
                 </div>
             </div>
         );
