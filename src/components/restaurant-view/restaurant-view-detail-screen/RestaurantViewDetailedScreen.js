@@ -1,20 +1,133 @@
 import React, { Component } from 'react'
-import { Carousel, Tag } from 'antd';
+import { Carousel, Tag, Card } from 'antd';
 
+const { Meta } = Card;
 const CheckableTag = Tag.CheckableTag;
-const tagsFromServer = ['Movies', 'Books', 'Music', 'Sports'];
+const tagsFromServer = ['Veg', 'Non Veg', 'Salads'];
 
 class RestaurantViewDetailedScreen extends Component {
 
     state = {
-        selectedTags: [],
+        selectedTags: ['All'],
+        allFoodItem: [
+            {
+                name: 'DOUBLE-DOUBLE',
+                type: 'fastFood'
+            },
+            {
+                name: 'WAFFLE FRIES',
+                type: 'fastFood'
+            },
+            {
+                name: 'FRIES',
+                type: 'fastFood'
+            },
+            {
+                name: 'CHICKEN POPEYES',
+                type: 'fastFood'
+            },
+            {
+                name: 'CHICKEN SANDWICH ',
+                type: 'fastFood'
+            },
+            {
+                name: 'CURLY FRIES',
+                type: 'fastFood'
+            },
+            {
+                name: 'BLIZZARD',
+                type: 'fastFood'
+            },
+            {
+                name: 'FROSTY',
+                type: 'fastFood'
+            },
+            {
+                name: 'MCFLURRY',
+                type: 'fastFood'
+            },
+            {
+                name: 'CHEESEBURGER',
+                type: 'fastFood'
+            },
+            {
+                name: '',
+                type: 'fastFood'
+            },
+            {
+                name: 'CHICKEN SANDWICH ',
+                type: 'fastFood'
+            },
+            {
+                name: 'Fruit Salad',
+                type: 'salad'
+            },
+            {
+                name: 'Pasta Salad',
+                type: 'salad'
+            },
+            {
+                name: 'Ceaser Salad',
+                type: 'salad'
+            },
+            {
+                name: 'Waldrof salad',
+                type: 'salad'
+            },
+            {
+                name: 'Cobb salad',
+                type: 'salad'
+            },
+            {
+                name: 'Taco Salad',
+                type: 'salad'
+            },
+            {
+                name: 'Malai kofta',
+                type: 'veg'
+            },
+            {
+                name: 'Aloo paratha',
+                type: 'veg'
+            },
+            {
+                name: 'Palak',
+                type: 'veg'
+            },
+            {
+                name: 'Chole',
+                type: 'veg'
+            },
+            {
+                name: 'Palak Paneer',
+                type: 'veg'
+            }
+        ],
     };
 
     handleChange(tag, checked) {
         const { selectedTags } = this.state;
+        if(tag==='All'){
+            if(selectedTags.indexOf('All')>-1){
+                this.setState({ selectedTags: ['All',...tagsFromServer] });
+                return
+            }
+        }
+        else{
+
+        }
         const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
         console.log('You are interested in: ', nextSelectedTags);
         this.setState({ selectedTags: nextSelectedTags });
+    }
+    checkAllTags() {
+        // const { selectedTags } = this.state;
+
+        // const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
+        // // console.log('You are interested in: ', nextSelectedTags);
+        // this.setState({ selectedTags: tagsFromServer });
+        // console.log(tagsFromServer)
+
     }
     render() {
         const { selectedTags } = this.state;
@@ -56,6 +169,13 @@ class RestaurantViewDetailedScreen extends Component {
                         <div className="food-tags">
                             <h1>Today's Special</h1>
                             <div>
+                                <CheckableTag
+                                    key='All'
+                                    checked={selectedTags.indexOf('All') > -1}
+                                    onChange={checked => this.handleChange('All', checked)}
+                                >
+                                    All
+                                </CheckableTag>
                                 {tagsFromServer.map(tag => (
                                     <CheckableTag
                                         key={tag}
@@ -66,6 +186,31 @@ class RestaurantViewDetailedScreen extends Component {
                                     </CheckableTag>
                                 ))}
                             </div>
+                        </div>
+
+                        <div className="items">
+                            {
+                                this.state.allFoodItem.filter((e) => {
+                                    if (this.state.selectedTags.indexOf('All') > -1) {
+                                        return true
+                                    }
+                                    else {
+                                        // if(e.type===)
+                                        return this.state.selectedTags.indexOf('All') > -1
+                                    }
+                                    return true
+                                }).map((e, i) => {
+                                    return (
+                                        <Card
+                                            hoverable
+                                            style={{ width: 240 }}
+                                            cover={<img alt="example" src={`https://picsum.photos/500/300?random=${i}`} />}
+                                        >
+                                            <Meta title={e.name} description={e.type} />
+                                        </Card>
+                                    )
+                                })
+                            }
                         </div>
                     </div>
                 </div>
