@@ -7,9 +7,7 @@ export class UserViewShowRequests extends Component {
 
     render() {
         return (
-            <div
-            //  style={{ display: 'inline-block', flexWrap: 'wrap', justifyContent: 'center', border: '1px solid red' }}
-             >
+            <div>
                 {
                     this.props.data.filter((e) => {
                         if (this.props.type === 'all') return true

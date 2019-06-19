@@ -4,5 +4,10 @@
 // my imports
 @import './views/registration-view.scss';
 @import './views/login-view.scss';
-@import './views//user-view-restaurants.scss';
+@import './views/user-view-restaurants.scss';
+@import './views/restaurant-view-detail-screen.scss';
 
+*, *::after, *::before{
+  margin:0;
+  padding: 0;
+}
