@@ -1,6 +1,5 @@
 import React from 'react'
 import { BrowserRouter, Route, Router } from 'react-router-dom';
-import createBrowserHistory from "history/createBrowserHistory";
 
 import { RestaurantHome } from './restaurant-home/RestaurantHome'
 import { RestaurantViewDetailedScreen } from './restaurant-view-detail-screen/RestaurantViewDetailedScreen';

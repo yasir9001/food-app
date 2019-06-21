@@ -3,134 +3,132 @@ import { Carousel, Tag, Card } from 'antd';
 
 const { Meta } = Card;
 const CheckableTag = Tag.CheckableTag;
-const tagsFromServer = ['Veg', 'Non Veg', 'Salads'];
+const tagsFromServer = ['Veg', 'Non Veg', 'Salad', 'Fast Food'];
 
 class RestaurantViewDetailedScreen extends Component {
 
     state = {
-        selectedTags: ['All'],
+        selectedTag: 'All',
         allFoodItem: [
             {
                 name: 'DOUBLE-DOUBLE',
-                type: 'fastFood'
+                type: 'Fast Food'
             },
             {
                 name: 'WAFFLE FRIES',
-                type: 'fastFood'
+                type: 'Fast Food'
             },
             {
                 name: 'FRIES',
-                type: 'fastFood'
+                type: 'Fast Food'
             },
             {
                 name: 'CHICKEN POPEYES',
-                type: 'fastFood'
+                type: 'Fast Food'
             },
             {
                 name: 'CHICKEN SANDWICH ',
-                type: 'fastFood'
+                type: 'Fast Food'
             },
             {
                 name: 'CURLY FRIES',
-                type: 'fastFood'
+                type: 'Fast Food'
             },
             {
                 name: 'BLIZZARD',
-                type: 'fastFood'
+                type: 'Fast Food'
             },
             {
                 name: 'FROSTY',
-                type: 'fastFood'
+                type: 'Fast Food'
             },
             {
                 name: 'MCFLURRY',
-                type: 'fastFood'
+                type: 'Fast Food'
             },
             {
                 name: 'CHEESEBURGER',
-                type: 'fastFood'
+                type: 'Fast Food'
             },
             {
                 name: '',
-                type: 'fastFood'
+                type: 'Fast Food'
             },
             {
                 name: 'CHICKEN SANDWICH ',
-                type: 'fastFood'
+                type: 'Fast Food'
             },
             {
                 name: 'Fruit Salad',
-                type: 'salad'
+                type: 'Salad'
             },
             {
                 name: 'Pasta Salad',
-                type: 'salad'
+                type: 'Salad'
             },
             {
                 name: 'Ceaser Salad',
-                type: 'salad'
+                type: 'Salad'
             },
             {
-                name: 'Waldrof salad',
-                type: 'salad'
+                name: 'Waldrof Salad',
+                type: 'Salad'
             },
             {
-                name: 'Cobb salad',
-                type: 'salad'
+                name: 'Cobb Salad',
+                type: 'Salad'
             },
             {
                 name: 'Taco Salad',
-                type: 'salad'
+                type: 'Salad'
             },
             {
                 name: 'Malai kofta',
-                type: 'veg'
+                type: 'Veg'
             },
             {
                 name: 'Aloo paratha',
-                type: 'veg'
+                type: 'Veg'
             },
             {
                 name: 'Palak',
-                type: 'veg'
+                type: 'Veg'
             },
             {
                 name: 'Chole',
-                type: 'veg'
+                type: 'Veg'
             },
             {
                 name: 'Palak Paneer',
-                type: 'veg'
-            }
+                type: 'Veg'
+            },
+            {
+                name: 'Palak Paneer',
+                type: 'Non Veg'
+            },
+            {
+                name: 'Palak Paneer',
+                type: 'Non Veg'
+            },
+            {
+                name: 'Palak Paneer',
+                type: 'Non Veg'
+            },
+            {
+                name: 'Palak Paneer',
+                type: 'Non Veg'
+            },
+
         ],
     };
 
     handleChange(tag, checked) {
-        const { selectedTags } = this.state;
-        if(tag==='All'){
-            if(selectedTags.indexOf('All')>-1){
-                this.setState({ selectedTags: ['All',...tagsFromServer] });
-                return
-            }
-        }
-        else{
-
-        }
-        const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
-        console.log('You are interested in: ', nextSelectedTags);
-        this.setState({ selectedTags: nextSelectedTags });
+        const nextSelectedTag = tag;
+        this.setState({ selectedTag: nextSelectedTag });
     }
-    checkAllTags() {
-        // const { selectedTags } = this.state;
 
-        // const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
-        // // console.log('You are interested in: ', nextSelectedTags);
-        // this.setState({ selectedTags: tagsFromServer });
-        // console.log(tagsFromServer)
-
-    }
     render() {
-        const { selectedTags } = this.state;
+        const { selectedTag } = this.state;
 
         return (
             <div className="restaurant-view-detail-screen-wrapper">
@@ -156,7 +154,7 @@ class RestaurantViewDetailedScreen extends Component {
 
                 <div className="short-info-wrapper">
                     <div className="short-info">
-                        <div className="short-info-image"><img src="https://picsum.photos/500/300?random" /></div>
+                        <div className="short-info-image" style={{ background: `url(https://picsum.photos/500/300?random) no-repeat center center`, backgroundSize: 'cover' }} ></div>
                         <div className="short-info-text">
                             <h1>Our Story</h1>
                             <p>Why painful the sixteen how minuter looking nor. Subject but why ten earnest husband imagine sixteen brandon. Are unpleasing occasional celebrated motionless unaffected conviction out. Evil make to no five they. Stuff at avoid of sense small fully it whose an. Ten scarcely distance moreover handsome age although. As when have find fine or said no mile. He in dispatched in imprudence dissimilar be possession unreserved insensible. She evil face fine calm have now. Separate screened he outweigh of distance landlord. </p>
@@ -171,7 +169,7 @@ class RestaurantViewDetailedScreen extends Component {
                             <div>
                                 <CheckableTag
                                     key='All'
-                                    checked={selectedTags.indexOf('All') > -1}
+                                    checked={selectedTag === "All"}
                                     onChange={checked => this.handleChange('All', checked)}
                                 >
                                     All
@@ -179,7 +177,7 @@ class RestaurantViewDetailedScreen extends Component {
                                 {tagsFromServer.map(tag => (
                                     <CheckableTag
                                         key={tag}
-                                        checked={selectedTags.indexOf(tag) > -1}
+                                        checked={selectedTag === tag}
                                         onChange={checked => this.handleChange(tag, checked)}
                                     >
                                         {tag}
@@ -191,14 +189,12 @@ class RestaurantViewDetailedScreen extends Component {
                         <div className="items">
                             {
                                 this.state.allFoodItem.filter((e) => {
-                                    if (this.state.selectedTags.indexOf('All') > -1) {
+                                    if (this.state.selectedTag === 'All') {
                                         return true
                                     }
                                     else {
-                                        // if(e.type===)
-                                        return this.state.selectedTags.indexOf('All') > -1
+                                        return this.state.selectedTag === e.type
                                     }
-                                    return true
                                 }).map((e, i) => {
                                     return (
                                         <Card
