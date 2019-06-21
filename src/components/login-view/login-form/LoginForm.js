@@ -3,6 +3,7 @@ import {
     Form,
     Input,
     Button,
+    message
 } from 'antd';
 import { connect } from 'react-redux'
 import { saveLoginData } from './../../../redux-config/actions/action'
@@ -22,12 +23,11 @@ class LoginForm extends React.Component {
                         firebase.firestore().collection('users').doc(res.user.uid).get()
                             .then((blob) => {
                                 this.props.saveLoginData({ ...res.user, ...blob.data() })
-                                // this.props.history.push('/user/home')
-                                window.location = '/user/home'
+                                this.props.history.push('/user/home')
                             })
                     })
                     .catch((err) => {
-                        console.log(err)
+                        message.error(err.message);
                     })
             }
         });
@@ -57,8 +57,6 @@ class LoginForm extends React.Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        // const { autoCompleteResult } = this.state;
-        console.log(this.props)
 
         const formItemLayout = {
             labelCol: {
@@ -82,7 +80,6 @@ class LoginForm extends React.Component {
                 },
             },
         };
-console.log('loginform',this.props)
         return (
             <div className="registration-form-wrapper">
                 <Form {...formItemLayout} onSubmit={this.handleSubmit} >

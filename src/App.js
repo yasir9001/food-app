@@ -15,11 +15,11 @@ function App() {
           <Route exact path="/" render={(props) => <LoginView {...props} />} />
           <Route exact path="/register" render={(props) => <RegistrationView {...props} />} />
           <Route exact path="/register-restaurant" render={(props) => <RestaurantRegistrationView {...props} />} />
+          <UserRoutes />
+          <RestaurantRoutes />
         </>
       </BrowserRouter>
-      
-      <UserRoutes />
-      <RestaurantRoutes />
+
     </div>
   );
 }

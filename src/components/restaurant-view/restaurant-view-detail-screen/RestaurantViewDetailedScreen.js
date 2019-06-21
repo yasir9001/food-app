@@ -121,10 +121,11 @@ class RestaurantViewDetailedScreen extends Component {
 
         ],
     };
-
-    handleChange(tag, checked) {
-        const nextSelectedTag = tag;
-        this.setState({ selectedTag: nextSelectedTag });
+    componentDidMount(){
+        console.log("did", this.props)
+    }
+    handleChange(tag) {
+        this.setState({ selectedTag:tag });
     }
 
     render() {
@@ -197,7 +198,8 @@ class RestaurantViewDetailedScreen extends Component {
                                     }
                                 }).map((e, i) => {
                                     return (
-                                        <Card
+                                        <Card 
+                                            key={i}
                                             hoverable
                                             style={{ width: 240 }}
                                             cover={<img alt="example" src={`https://picsum.photos/500/300?random=${i}`} />}

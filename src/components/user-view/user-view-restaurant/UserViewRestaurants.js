@@ -62,7 +62,7 @@ export class UserViewRestaurants extends Component {
                     </div>
 
                     <div>
-                        <InfiniteListExample />
+                        <InfiniteListExample {...this.props} />
                     </div>
 
 
@@ -141,7 +141,6 @@ class InfiniteListExample extends React.Component {
     };
 
     render() {
-
         return (
             <div className="demo-infinite-container">
                 <InfiniteScroll
@@ -154,12 +153,12 @@ class InfiniteListExample extends React.Component {
                     <List
                         dataSource={this.state.data}
                         renderItem={item => (
-                            <List.Item key={item.id}>
+                            <List.Item key={item.id} onClick={()=> this.props.history.push('/restaurant/detail_view')} >
                                 <List.Item.Meta
                                     avatar={
                                         <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                                     }
-                                    title={<a href="">{item.name.last}</a>}
+                                    title={<a>{item.name.last}</a>}
                                     description={item.email}
                                 />
                             </List.Item>
