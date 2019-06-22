@@ -38,11 +38,11 @@ class RestaurantViewTopNav extends Component {
 
                         <Menu.Item key="upload">
                             <Icon type="plus-circle" />
-                            Add
+                            <Link style={{ display: 'inline' }} to='/restaurant/add'>Add</Link>
                         </Menu.Item>
 
                         <Menu.Item key="logout">
-                            Logout
+                            <span>Logout</span>
                         </Menu.Item>
                     </Menu>
                 </div>
