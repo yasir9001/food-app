@@ -1,0 +1,15 @@
+.restaurant-view-top-nav-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .logo>div{
+        margin-left: 20px;
+        img{
+            height: 50px;
+        }
+        span{
+            font-size: 24px;
+        }
+    }
+}
