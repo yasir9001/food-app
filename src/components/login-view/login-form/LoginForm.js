@@ -22,8 +22,10 @@ class LoginForm extends React.Component {
                     .then((res) => {
                         firebase.firestore().collection('users').doc(res.user.uid).get()
                             .then((blob) => {
+                                //save user login data to store and localstorage
                                 this.props.saveLoginData({ ...res.user, ...blob.data() })
-                                this.props.history.push('/user/home')
+                                //routes to either user or restaurant
+                                blob.data().type === 'restaurant' ? this.props.history.push('/restaurant/detail_view') : this.props.history.push('/user/home')
                             })
                     })
                     .catch((err) => {

@@ -6,7 +6,7 @@ export class RestaurantRegistrationView extends Component {
         return (
             <div className="registration-from-wrapper">
                 <div className="registration-from-body">
-                    <WrappedRestuarantRegistrationForm />
+                    <WrappedRestuarantRegistrationForm {...this.props} />
                 </div>
             </div>
         )

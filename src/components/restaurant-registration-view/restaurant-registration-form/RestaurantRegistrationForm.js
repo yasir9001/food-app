@@ -42,16 +42,17 @@ class RestaurantRegistrationForm extends React.Component {
                         firebase.firestore().collection('users').doc(res.user.uid)
                             .set({ ...values, type: 'restaurant' })
                             .then(() => {
-                                firebase.auth().currentUser.sendEmailVerification()
-                                    .then(function () {
-                                        alert('email sent')
-                                    }, function (err) {
-                                        console.log(err)
-                                    });
+                                this.props.history.push('/restaurant/detail_view')
+                                // firebase.auth().currentUser.sendEmailVerification()
+                                //     .then(function () {
+                                //         alert('email sent')
+                                //     }, function (err) {
+                                //         console.log(err)
+                                //     });
                             })
                     })
                     .catch((err) => {
-                        console.log(err)
+                        message.error(err.message)
                     })
             }
         });
