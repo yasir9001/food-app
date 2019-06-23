@@ -40,10 +40,11 @@ class RestaurantRegistrationForm extends React.Component {
                 firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
                     .then((res) => {
 
-                        firebase.database().ref().child('foodapp/users').child(res.user.uid)
+                        firebase.database().ref().child(`foodapp/users/${res.user.uid}/info`)
                             .set({ ...values, type: 'restaurant' })
                             .then(() => {
                                 message.success("Account Created")
+                                window.localStorage.setItem('uid', res.user.uid)
                                 this.props.history.push('/restaurant/detail_view')
                                 // firebase.auth().currentUser.sendEmailVerification()
                                 //     .then(function () {
@@ -59,6 +60,7 @@ class RestaurantRegistrationForm extends React.Component {
             }
         });
     };
+
     handleChangeimage = info => {
         if (info.file.status === 'uploading') {
             this.setState({ loading: true });

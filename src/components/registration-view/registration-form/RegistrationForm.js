@@ -26,7 +26,7 @@ class RegistrationForm extends React.Component {
             if (!err) {
                 firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
                     .then((res) => {
-                        firebase.database().ref().child('foodapp/users').child(res.user.uid)
+                        firebase.database().ref().child(`foodapp/users/${res.user.uid}/info`)
                             .set({ ...values, type: 'user' })
                             .then(()=> message.success("Account Created"))
                     })
