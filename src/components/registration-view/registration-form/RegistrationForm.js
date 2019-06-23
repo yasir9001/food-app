@@ -4,7 +4,8 @@ import {
     Input,
     Select,
     Button,
-    InputNumber
+    InputNumber,
+    message
 } from 'antd';
 
 import firebase from './../../../firebaseConfig';
@@ -25,8 +26,9 @@ class RegistrationForm extends React.Component {
             if (!err) {
                 firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
                     .then((res) => {
-                        firebase.firestore().collection('users').doc(res.user.uid)
+                        firebase.database().ref().child('foodapp/users').child(res.user.uid)
                             .set({ ...values, type: 'user' })
+                            .then(()=> message.success("Account Created"))
                     })
                     .catch((err) => {
                         console.log(err)

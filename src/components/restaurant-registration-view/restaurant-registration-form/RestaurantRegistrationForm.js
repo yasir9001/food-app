@@ -39,9 +39,11 @@ class RestaurantRegistrationForm extends React.Component {
             if (!err) {
                 firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
                     .then((res) => {
-                        firebase.firestore().collection('users').doc(res.user.uid)
+
+                        firebase.database().ref().child('foodapp/users').child(res.user.uid)
                             .set({ ...values, type: 'restaurant' })
                             .then(() => {
+                                message.success("Account Created")
                                 this.props.history.push('/restaurant/detail_view')
                                 // firebase.auth().currentUser.sendEmailVerification()
                                 //     .then(function () {

@@ -20,12 +20,13 @@ class LoginForm extends React.Component {
             if (!err) {
                 firebase.auth().signInWithEmailAndPassword(values.email, values.password)
                     .then((res) => {
-                        firebase.firestore().collection('users').doc(res.user.uid).get()
-                            .then((blob) => {
+                        firebase.database().ref().child('foodapp/users').child(res.user.uid)
+                            .once('value', (snap) => {
                                 //save user login data to store and localstorage
-                                this.props.saveLoginData({ ...res.user, ...blob.data() })
+                                this.props.saveLoginData({ firebaseData: res.user, userInfo: snap.val() })
+
                                 //routes to either user or restaurant
-                                blob.data().type === 'restaurant' ? this.props.history.push('/restaurant/detail_view') : this.props.history.push('/user/home')
+                                snap.val().type === 'restaurant' ? this.props.history.push('/restaurant/detail_view') : this.props.history.push('/user/home')
                             })
                     })
                     .catch((err) => {
