@@ -24,6 +24,7 @@ class RestaurantViewAddItem extends Component {
                 const pushKey = this.path.child(`users/${uid}/foodIems`).push().key
                 this.path.child(`users/${uid}/foodIems/${pushKey}`).set({
                     ...values,
+                    image: values.image[0].thumbUrl,
                     id: pushKey
                 })
                     .then(() => {
@@ -35,31 +36,10 @@ class RestaurantViewAddItem extends Component {
     };
 
     normFile = e => {
-        console.log('Upload event:', e);
         if (Array.isArray(e)) {
-            console.log('return e', e)
             return e;
         }
         return e && e.fileList;
-    };
-
-    handleChange = info => {
-        let fileList = [...info.fileList];
-        console.log(info)
-        // 1. Limit the number of uploaded files
-        // Only to show two recent uploaded files, and old ones will be replaced by the new
-        // fileList = fileList.slice(-2);
-
-        // // 2. Read from response and show file link
-        // fileList = fileList.map(file => {
-        //     if (file.response) {
-        //         // Component will show file.url as link
-        //         file.url = file.response.url;
-        //     }
-        //     return file;
-        // });
-
-        // this.setState({ fileList });
     };
 
     render() {
@@ -121,9 +101,9 @@ class RestaurantViewAddItem extends Component {
                         <Form.Item extra="Upload an image of food item">
                             {getFieldDecorator('image', {
                                 valuePropName: 'fileList',
-                                // getValueFromEvent: this.normFile,
+                                getValueFromEvent: this.normFile,
                             })(
-                                <Upload onChange={(e) => this.handleChange(e)} fileList={this.state.fileList} multiple={true} listType="picture">
+                                <Upload name="image" listType="picture">
                                     <Button>
                                         <Icon type="upload" /> Click to upload
                                     </Button>
@@ -146,45 +126,3 @@ class RestaurantViewAddItem extends Component {
 const RestaurantViewAddItemWrapper = Form.create({ name: 'addItem' })(RestaurantViewAddItem);
 
 export { RestaurantViewAddItemWrapper as RestaurantViewAddItem }
-
-
-// let storageRef = firebase.storage().ref('photos/myPictureName')
-// let fileUpload = document.getElementById("cameraInput")
-
-// fileUpload.addEventListener('change', function(evt) {
-//     let firstFile = evt.target.files[0] // upload the first file only
-//     let uploadTask = storageRef.put(firstFile)
-// })
-
-
-
-
-// const fileList = [
-//     {
-//         uid: '-1',
-//         name: 'xxx.png',
-//         status: 'done',
-//         url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-//         thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-//     },
-//     {
-//         uid: '-2',
-//         name: 'yyy.png',
-//         status: 'done',
-//         url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-//         thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-//     },
-// ];
-
-// const props = {
-//     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-//     listType: 'picture',
-//     defaultFileList: [...fileList],
-// };
-
-// const props2 = {
-//     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-//     listType: 'picture',
-//     defaultFileList: [...fileList],
-//     className: 'upload-list-inline',
-// };
